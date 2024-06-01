@@ -28,8 +28,15 @@ function addInput() {
     div.innerHTML = `
         <label for="cadTotal${inputCount}">Bill ${inputCount}:</label>
         <input type="number" id="cadTotal${inputCount}" step="0.01" class="cadTotal" oninput="updateTotal()" onblur="updateTotal()">
+        <button class="delete-button" onclick="removeInput(this)">X</button>
     `;
     document.getElementById('cadInputs').appendChild(div);
+}
+
+function removeInput(button) {
+    const div = button.parentElement;
+    div.remove();
+    updateTotal();
 }
 
 function updateTotal() {
