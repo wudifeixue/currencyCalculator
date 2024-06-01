@@ -1,4 +1,4 @@
-const API_URL = 'https://api.exchangerate-api.com/v4/latest/CAD';
+const API_URL = 'https://api.exchangerate-api.com/v4/latest/CNY';
 let inputCount = 1;
 
 async function getExchangeRates() {
@@ -7,9 +7,11 @@ async function getExchangeRates() {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
+
         const data = await response.json();
-        const cadToRmb = data.rates.CNY;
-        const usdToRmb = data.rates.CNY / data.rates.USD;
+        const cadToRmb = 1 / data.rates.CAD;
+        const usdToRmb = 1 / data.rates.USD;
+
         return { cadToRmb, usdToRmb };
     } catch (error) {
         throw new Error('获取汇率数据失败');
@@ -21,7 +23,7 @@ function addInput() {
     const div = document.createElement('div');
     div.classList.add('cad-input');
     div.innerHTML = `
-        <label for="cadTotal${inputCount}">CAD Total ${inputCount}:</label>
+        <label for="cadTotal${inputCount}">Bill ${inputCount}:</label>
         <input type="number" id="cadTotal${inputCount}" step="0.01" class="cadTotal" oninput="updateTotal()" onblur="updateTotal()">
     `;
     document.getElementById('cadInputs').appendChild(div);
