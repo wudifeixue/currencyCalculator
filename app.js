@@ -22,13 +22,12 @@ function addInput() {
     div.classList.add('cad-input');
     div.innerHTML = `
         <label for="cadTotal${inputCount}">CAD Total ${inputCount}:</label>
-        <input type="number" id="cadTotal${inputCount}" step="0.01" class="cadTotal">
+        <input type="number" id="cadTotal${inputCount}" step="0.01" class="cadTotal" oninput="updateTotal()" onblur="updateTotal()">
     `;
     document.getElementById('cadInputs').appendChild(div);
 }
 
-async function calculate() {
-    document.getElementById('error').textContent = ''; // 清除之前的错误信息
+function updateTotal() {
     const cadTotals = document.querySelectorAll('.cadTotal');
     let totalCad = 0;
 
@@ -39,7 +38,13 @@ async function calculate() {
         }
     });
 
-    if (totalCad <= 0) {
+    document.getElementById('totalCad').textContent = totalCad.toFixed(2);
+}
+
+async function calculate() {
+    document.getElementById('error').textContent = ''; // 清除之前的错误信息
+    const totalCad = parseFloat(document.getElementById('totalCad').textContent);
+    if (isNaN(totalCad) || totalCad <= 0) {
         alert('请输入有效的CAD总额');
         return;
     }
