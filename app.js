@@ -1,4 +1,5 @@
 const API_URL = 'https://api.exchangerate-api.com/v4/latest/CAD';
+let inputCount = 1;
 
 async function getExchangeRates() {
     try {
@@ -15,18 +16,38 @@ async function getExchangeRates() {
     }
 }
 
+function addInput() {
+    inputCount++;
+    const div = document.createElement('div');
+    div.classList.add('cad-input');
+    div.innerHTML = `
+        <label for="cadTotal${inputCount}">CAD Total ${inputCount}:</label>
+        <input type="number" id="cadTotal${inputCount}" step="0.01" class="cadTotal">
+    `;
+    document.getElementById('cadInputs').appendChild(div);
+}
+
 async function calculate() {
     document.getElementById('error').textContent = ''; // 清除之前的错误信息
-    const cadTotal = parseFloat(document.getElementById('cadTotal').value);
-    if (isNaN(cadTotal) || cadTotal <= 0) {
+    const cadTotals = document.querySelectorAll('.cadTotal');
+    let totalCad = 0;
+
+    cadTotals.forEach(input => {
+        const value = parseFloat(input.value);
+        if (!isNaN(value) && value > 0) {
+            totalCad += value;
+        }
+    });
+
+    if (totalCad <= 0) {
         alert('请输入有效的CAD总额');
         return;
     }
 
     try {
         const { cadToRmb, usdToRmb } = await getExchangeRates();
-        const result110 = cadTotal * cadToRmb * 1.1;
-        const result40 = (cadTotal * usdToRmb - cadTotal * cadToRmb) * 0.4 + cadTotal * cadToRmb;
+        const result110 = totalCad * cadToRmb * 1.1;
+        const result40 = (totalCad * usdToRmb - totalCad * cadToRmb) * 0.4 + totalCad * cadToRmb;
 
         document.getElementById('result110').textContent = `110%: ${result110.toFixed(2)} RMB`;
         document.getElementById('result40').textContent = `USD 40% difference: ${result40.toFixed(2)} RMB`;

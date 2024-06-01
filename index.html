@@ -19,13 +19,31 @@
         .error {
             color: red;
         }
+        .cad-input {
+            display: flex;
+            align-items: center;
+        }
+        .cad-input label {
+            flex: 1;
+        }
+        .cad-input input {
+            flex: 2;
+        }
+        .cad-input button {
+            flex: 0.5;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>汇率费用计算器</h1>
-        <label for="cadTotal">CAD Total:</label>
-        <input type="number" id="cadTotal" step="0.01">
+        <div id="cadInputs">
+            <div class="cad-input">
+                <label for="cadTotal1">CAD Total 1:</label>
+                <input type="number" id="cadTotal1" step="0.01" class="cadTotal">
+            </div>
+        </div>
+        <button onclick="addInput()">添加更多账单</button>
         <button onclick="calculate()">计算</button>
         <h2>结果</h2>
         <p id="result110"></p>
