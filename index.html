@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>汇率费用计算器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        label, input, button {
+            display: block;
+            margin: 10px 0;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>汇率费用计算器</h1>
+        <label for="cadTotal">CAD Total:</label>
+        <input type="number" id="cadTotal" step="0.01">
+        <button onclick="calculate()">计算</button>
+        <h2>结果</h2>
+        <p id="result110"></p>
+        <p id="result40"></p>
+        <p id="error" class="error"></p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
