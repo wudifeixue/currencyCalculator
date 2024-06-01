@@ -1,5 +1,7 @@
 const API_URL = 'https://api.exchangerate-api.com/v4/latest/CNY';
 let inputCount = 1;
+let cadToRmb = 0;
+let usdToRmb = 0;
 
 async function getExchangeRates() {
     try {
@@ -9,15 +11,13 @@ async function getExchangeRates() {
         }
 
         const data = await response.json();
-        const cadToRmb = 1 / data.rates.CAD;
-        const usdToRmb = 1 / data.rates.USD;
+        cadToRmb = 1 / data.rates.CAD;
+        usdToRmb = 1 / data.rates.USD;
 
         document.getElementById('cadToRmbRate').textContent = `1 CAD = ${cadToRmb.toFixed(4)} RMB`;
         document.getElementById('usdToRmbRate').textContent = `1 USD = ${usdToRmb.toFixed(4)} RMB`;
-
-        return { cadToRmb, usdToRmb };
     } catch (error) {
-        throw new Error('获取汇率数据失败');
+        document.getElementById('error').textContent = '获取汇率数据失败';
     }
 }
 
@@ -46,7 +46,7 @@ function updateTotal() {
     document.getElementById('totalCad').textContent = totalCad.toFixed(2);
 }
 
-async function calculate() {
+function calculate() {
     document.getElementById('error').textContent = ''; // 清除之前的错误信息
     const totalCad = parseFloat(document.getElementById('totalCad').textContent);
     if (isNaN(totalCad) || totalCad <= 0) {
@@ -55,7 +55,6 @@ async function calculate() {
     }
 
     try {
-        const { cadToRmb, usdToRmb } = await getExchangeRates();
         const result110 = totalCad * cadToRmb * 1.1;
         const result40 = (totalCad * usdToRmb - totalCad * cadToRmb) * 0.4 + totalCad * cadToRmb;
 
@@ -67,3 +66,6 @@ async function calculate() {
         document.getElementById('result40').textContent = '';
     }
 }
+
+// 页面加载时获取汇率
+window.onload = getExchangeRates;
