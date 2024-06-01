@@ -58,7 +58,6 @@
             background-color: #dc3545;
             color: white;
             border: none;
-            margin: 10px 0;
             padding: 10px;
             margin-left: 10px;
             border-radius: 4px;
@@ -96,6 +95,20 @@
         }
         .results {
             margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #007bff;
+            border-radius: 8px;
+            background-color: #e9f4ff;
+        }
+        .results h2 {
+            margin: 0 0 10px;
+            font-size: 18px;
+            color: #007bff;
+        }
+        .result-item {
+            font-size: 18px;
+            margin: 5px 0;
+            color: #007bff;
         }
         @media (max-width: 600px) {
             .rate-info {
@@ -128,8 +141,8 @@
         </div>
         <div class="results">
             <h2>结果</h2>
-            <p id="result110"></p>
-            <p id="result40"></p>
+            <p id="result110" class="result-item"></p>
+            <p id="result40" class="result-item"></p>
             <p id="error" class="error"></p>
         </div>
     </div>
