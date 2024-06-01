@@ -2,19 +2,40 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>汇率费用计算器</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            padding: 0;
+            box-sizing: border-box;
         }
         .container {
             max-width: 600px;
             margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         label, input, button {
             display: block;
+            width: 100%;
             margin: 10px 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #0056b3;
         }
         .error {
             color: red;
@@ -22,15 +43,26 @@
         .cad-input {
             display: flex;
             align-items: center;
+            justify-content: space-between;
         }
         .cad-input label {
             flex: 1;
         }
         .cad-input input {
             flex: 2;
+            margin-left: 10px;
         }
-        .cad-input button {
-            flex: 0.5;
+        .rate-info {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .rate-info span {
+            display: inline-block;
+            margin: 5px 0;
+        }
+        .results {
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -46,10 +78,16 @@
         <p>Total CAD: <span id="totalCad">0.00</span></p>
         <button onclick="addInput()">添加更多账单</button>
         <button onclick="calculate()">计算</button>
-        <h2>结果</h2>
-        <p id="result110"></p>
-        <p id="result40"></p>
-        <p id="error" class="error"></p>
+        <div class="rate-info">
+            <span id="cadToRmbRate">1 CAD = ? RMB</span>
+            <span id="usdToRmbRate">1 USD = ? RMB</span>
+        </div>
+        <div class="results">
+            <h2>结果</h2>
+            <p id="result110"></p>
+            <p id="result40"></p>
+            <p id="error" class="error"></p>
+        </div>
     </div>
 
     <script src="app.js"></script>

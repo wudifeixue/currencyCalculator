@@ -12,6 +12,9 @@ async function getExchangeRates() {
         const cadToRmb = 1 / data.rates.CAD;
         const usdToRmb = 1 / data.rates.USD;
 
+        document.getElementById('cadToRmbRate').textContent = `1 CAD = ${cadToRmb.toFixed(4)} RMB`;
+        document.getElementById('usdToRmbRate').textContent = `1 USD = ${usdToRmb.toFixed(4)} RMB`;
+
         return { cadToRmb, usdToRmb };
     } catch (error) {
         throw new Error('获取汇率数据失败');
